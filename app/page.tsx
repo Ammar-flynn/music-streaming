@@ -43,14 +43,14 @@ const albums = [
 ];
 
 const allSongs = [
-  { id: 1, title: "Frozen Heart", artist: "Elsa Melody", artistId: 1, album: "Winter Tales", albumId: 1, duration: "3:45", cover: "https://picsum.photos/id/104/200/200", plays: "1.2M", trending: true, audio: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
-  { id: 2, title: "Ice Castle Dreams", artist: "Snow Symphony", artistId: 2, album: "Frozen Echoes", albumId: 2, duration: "4:12", cover: "https://picsum.photos/id/15/200/200", plays: "892K", trending: true, audio: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
-  { id: 3, title: "Northern Lights", artist: "Aurora Vibes", artistId: 3, album: "Arctic Nights", albumId: 3, duration: "3:58", cover: "https://picsum.photos/id/96/200/200", plays: "2.1M", trending: true, audio: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
-  { id: 4, title: "Espresso", artist: "Sabrina Carpenter", artistId: 4, album: "Short n' Sweet", albumId: 4, duration: "3:21", cover: "https://i.ytimg.com/vi/51zjlMhdSTE/maxresdefault.jpg", plays: "900M", trending: true, audio: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
-  { id: 5, title: "Snowflake Waltz", artist: "Winter Wind", artistId: 5, album: "Dance of Snow", albumId: 5, duration: "3:30", cover: "https://picsum.photos/id/30/200/200", plays: "1.5M", trending: true, audio: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
-  { id: 6, title: "Arctic Sunrise", artist: "Polar Dawn", artistId: 6, album: "Morning Frost", albumId: 6, duration: "4:05", cover: "https://picsum.photos/id/42/200/200", plays: "987K", trending: false, audio: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
-  { id: 7, title: "Winter Magic", artist: "Elsa Melody", artistId: 1, album: "Winter Tales", albumId: 1, duration: "3:52", cover: "https://picsum.photos/id/20/200/200", plays: "1.8M", trending: true, audio: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
-  { id: 8, title: "Snow Queen's Dance", artist: "Aurora Vibes", artistId: 3, album: "Arctic Nights", albumId: 3, duration: "4:15", cover: "https://picsum.photos/id/29/200/200", plays: "2.3M", trending: false, audio: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
+  { id: 1, title: "Frozen Heart", artist: "Elsa Melody", artistId: 1, album: "Winter Tales", albumId: 1, duration: "3:45", coverUrl: "https://picsum.photos/id/104/200/200", plays: "1.2M", trending: true, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
+  { id: 2, title: "Ice Castle Dreams", artist: "Snow Symphony", artistId: 2, album: "Frozen Echoes", albumId: 2, duration: "4:12", coverUrl: "https://picsum.photos/id/15/200/200", plays: "892K", trending: true, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
+  { id: 3, title: "Northern Lights", artist: "Aurora Vibes", artistId: 3, album: "Arctic Nights", albumId: 3, duration: "3:58", coverUrl: "https://picsum.photos/id/96/200/200", plays: "2.1M", trending: true, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
+  { id: 4, title: "Espresso", artist: "Sabrina Carpenter", artistId: 4, album: "Short n' Sweet", albumId: 4, duration: "3:21", coverUrl: "https://i.ytimg.com/vi/51zjlMhdSTE/maxresdefault.jpg", plays: "900M", trending: true, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
+  { id: 5, title: "Snowflake Waltz", artist: "Winter Wind", artistId: 5, album: "Dance of Snow", albumId: 5, duration: "3:30", coverUrl: "https://picsum.photos/id/30/200/200", plays: "1.5M", trending: true, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
+  { id: 6, title: "Arctic Sunrise", artist: "Polar Dawn", artistId: 6, album: "Morning Frost", albumId: 6, duration: "4:05", coverUrl: "https://picsum.photos/id/42/200/200", plays: "987K", trending: false, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
+  { id: 7, title: "Winter Magic", artist: "Elsa Melody", artistId: 1, album: "Winter Tales", albumId: 1, duration: "3:52", coverUrl: "https://picsum.photos/id/20/200/200", plays: "1.8M", trending: true, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
+  { id: 8, title: "Snow Queen's Dance", artist: "Aurora Vibes", artistId: 3, album: "Arctic Nights", albumId: 3, duration: "4:15", coverUrl: "https://picsum.photos/id/29/200/200", plays: "2.3M", trending: false, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
 ];
 
 type Page = "home" | "artist" | "album" | "search";
@@ -74,6 +74,15 @@ export default function Home() {
   const [isPlaylistOpen, setIsPlaylistOpen] = useState(false);
   const [playlistSongs, setPlaylistSongs] = useState<any[]>([]);
   const [currentQueueIndex, setCurrentQueueIndex] = useState(0);
+  const [songs, setSongs] = useState<any[]>([]);
+
+useEffect(() => {
+  fetch('/api/songs')
+    .then(res => res.json())
+    .then(data => setSongs(data))
+}, []);
+
+console.log("songs from API:", songs);
 
   // Auto-play next song when current song ends
   useEffect(() => {
@@ -128,6 +137,8 @@ export default function Home() {
       audioRef.current.volume = volume;
     }
   }, [volume]);
+
+  
 
   const toggleLike = (songId: number) => {
     setLikedSongs(prev => 
@@ -194,7 +205,7 @@ export default function Home() {
   };
 
   const currentSongs = getCurrentSongs();
-  const trendingSongs = allSongs.filter(song => song.trending);
+  const trendingSongs = songs;
 
   const nextSlide = () => {
     setSliderIndex((prev) => (prev + 1) % trendingSongs.length);
@@ -362,7 +373,7 @@ export default function Home() {
         <div className="now-playing-card frozen-card">
           <div className="now-playing-content">
             <div className="now-playing-image">
-              <img src={currentSong.cover} alt={currentSong.title} />
+              <img src={currentSong.coverUrl} alt={currentSong.title} />
             </div>
             <div>
               <p className="now-playing-label">❄️ NOW PLAYING</p>
@@ -406,7 +417,8 @@ export default function Home() {
         {currentPage === "home" && (
           <>
             {/* Trending Slider */}
-            <div className="trending-slider">
+            {/* Trending Slider */}
+            {trendingSongs.length > 0 && <div className="trending-slider">
               <div className="section-header">
                 <h2 className="section-title">🔥 Trending Now</h2>
                 <div className="slider-nav">
@@ -424,7 +436,7 @@ export default function Home() {
                     <div className="trending-card frozen-card">
                       <div className="trending-content">
                         <img 
-                          src={trendingSongs[sliderIndex].cover} 
+                          src={trendingSongs[sliderIndex].coverUrl} 
                           alt={trendingSongs[sliderIndex].title}
                           className="trending-image"
                         />
@@ -451,7 +463,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>}
 
             {/* Popular Artists */}
             <div style={{ marginBottom: '48px' }}>
@@ -503,7 +515,7 @@ export default function Home() {
                   >
                     <div className="song-image-container">
                       <img 
-                        src={song.cover} 
+                        src={song.coverUrl} 
                         alt={song.title}
                         className="song-image"
                       />
@@ -581,7 +593,7 @@ export default function Home() {
                   }}
                 >
                   <div className="song-image-container">
-                    <img src={song.cover} alt={song.title} className="song-image" />
+                    <img src={song.coverUrl} alt={song.title} className="song-image" />
                     <div className="song-overlay">
                       <button className="song-play-button">
                         <Play size={24} />
@@ -692,7 +704,7 @@ export default function Home() {
                     }}
                   >
                     <div className="song-image-container">
-                      <img src={song.cover} alt={song.title} className="song-image" />
+                      <img src={song.coverUrl} alt={song.title} className="song-image" />
                       <div className="song-overlay">
                         <button className="song-play-button">
                           <Play size={24} />
@@ -732,7 +744,7 @@ export default function Home() {
           <div className="bar-content">
             <div className="bar-song-info">
               <div className="bar-song-image">
-                <img src={currentSong.cover} alt={currentSong.title} />
+                <img src={currentSong.coverUrl} alt={currentSong.title} />
               </div>
               <div>
                 <p className="bar-song-title">{currentSong.title}</p>
@@ -789,7 +801,7 @@ export default function Home() {
           </div>
         </div>
 
-        <audio ref={audioRef} src={currentSong.audio} />
+        <audio ref={audioRef} src={currentSong.audioUrl} />
       </div>
 
       {/* Playlist Slider */}
@@ -829,7 +841,7 @@ export default function Home() {
                       onClick={() => playSongFromPlaylist(index)}
                     >
                       <div className="playlist-song-number">{index + 1}</div>
-                      <img src={song.cover} alt={song.title} className="playlist-song-image" />
+                      <img src={song.coverUrl} alt={song.title} className="playlist-song-image" />
                       <div className="playlist-song-info">
                         <h4 className="playlist-song-title">{song.title}</h4>
                         <p className="playlist-song-artist">{song.artist}</p>
