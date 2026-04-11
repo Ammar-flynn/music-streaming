@@ -217,20 +217,16 @@ console.log("songs from API:", songs);
 
   // Playlist queue functions
   const addToPlaylist = (song: any) => {
-    if (!playlistSongs.find(s => s.id === song.id)) {
       setPlaylistSongs([...playlistSongs, song]);
-    }
-  };
+    };
 
-  const removeFromPlaylist = (songId: number) => {
-    const newPlaylist = playlistSongs.filter(song => song.id !== songId);
-    setPlaylistSongs(newPlaylist);
-    
-    // Adjust current queue index if needed
-    if (currentQueueIndex >= newPlaylist.length) {
-      setCurrentQueueIndex(Math.max(0, newPlaylist.length - 1));
-    }
-  };
+const removeFromPlaylist = (index: number) => {
+  const newPlaylist = playlistSongs.filter((_, i) => i !== index);
+  setPlaylistSongs(newPlaylist);
+  if (currentQueueIndex >= newPlaylist.length) {
+    setCurrentQueueIndex(Math.max(0, newPlaylist.length - 1));
+  }
+};
 
   const playSongFromPlaylist = (index: number) => {
     if (playlistSongs[index]) {
@@ -240,16 +236,19 @@ console.log("songs from API:", songs);
     }
   };
 
-  const playNextSong = () => {
-    if (playlistSongs.length > 0 && currentQueueIndex + 1 < playlistSongs.length) {
-      const nextIndex = currentQueueIndex + 1;
-      setCurrentSong(playlistSongs[nextIndex]);
-      setCurrentQueueIndex(nextIndex);
-      setIsPlaying(true);
-    } else {
-      setIsPlaying(false);
-    }
-  };
+ const playNextSong = () => {
+  if (playlistSongs.length > 1) {
+    const newPlaylist = playlistSongs.slice(1);
+    setPlaylistSongs(newPlaylist);
+    setCurrentSong(newPlaylist[0]);
+    setCurrentQueueIndex(0);
+    setIsPlaying(true);
+  } else {
+    setPlaylistSongs([]);
+    setCurrentQueueIndex(0);
+    setIsPlaying(false);
+  }
+};
 
   const playPreviousSong = () => {
     if (playlistSongs.length > 0 && currentQueueIndex - 1 >= 0) {
@@ -268,7 +267,7 @@ console.log("songs from API:", songs);
 
   const playSongWithQueue = (song: any) => {
     // Check if song is already in playlist
-    const existingIndex = playlistSongs.findIndex(s => s.id === song.id);
+    const existingIndex = playlistSongs.findIndex(s => (s._id || s.id) === (song._id || song.id));
     
     if (existingIndex !== -1) {
       // If song exists, play it from its position
@@ -837,7 +836,7 @@ console.log("songs from API:", songs);
                   {playlistSongs.map((song, index) => (
                     <div
                       key={song.id}
-                      className={`playlist-song-item ${index === currentQueueIndex && currentSong.id === song.id ? 'active' : ''}`}
+                      className={`playlist-song-item ${index === currentQueueIndex && (currentSong._id || currentSong.id) === (song._id || song.id)? 'active' : ''}`}
                       onClick={() => playSongFromPlaylist(index)}
                     >
                       <div className="playlist-song-number">{index + 1}</div>
@@ -850,7 +849,7 @@ console.log("songs from API:", songs);
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          removeFromPlaylist(song.id);
+                          removeFromPlaylist(index);
                         }}
                         className="remove-from-playlist"
                         title="Remove from queue"
