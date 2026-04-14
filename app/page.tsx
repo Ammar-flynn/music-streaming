@@ -28,29 +28,18 @@ import "./global.css";
 // Full music database (same as before)
 const artists = [
   { id: 1, name: "Elsa Melody", image: "https://picsum.photos/id/104/200/200", followers: "2.5M" },
-  { id: 2, name: "Snow Symphony", image: "https://picsum.photos/id/15/200/200", followers: "1.8M" },
-  { id: 3, name: "Aurora Vibes", image: "https://picsum.photos/id/96/200/200", followers: "3.2M" },
-  { id: 4, name: "Glacier Peak", image: "https://picsum.photos/id/22/200/200", followers: "890K" },
-  { id: 5, name: "Winter Wind", image: "https://picsum.photos/id/30/200/200", followers: "1.5M" },
-];
+  { id: 2, name: "Sabrina Carpenter", image: "https://i.ytimg.com/vi/51zjlMhdSTE/maxresdefault.jpg", followers: "222.5M" }
+  ];
 
 const albums = [
-  { id: 1, name: "Winter Tales", artist: "Elsa Melody", image: "https://picsum.photos/id/104/200/200", year: "2024", songs: 12 },
-  { id: 2, name: "Frozen Echoes", artist: "Snow Symphony", image: "https://picsum.photos/id/15/200/200", year: "2023", songs: 10 },
-  { id: 3, name: "Arctic Nights", artist: "Aurora Vibes", image: "https://picsum.photos/id/96/200/200", year: "2024", songs: 14 },
-  { id: 4, name: "Melting Moments", artist: "Glacier Peak", image: "https://picsum.photos/id/22/200/200", year: "2023", songs: 8 },
-  { id: 5, name: "Dance of Snow", artist: "Winter Wind", image: "https://picsum.photos/id/30/200/200", year: "2024", songs: 11 },
-];
+  { id: 1, name: "Frozen Echoes", artist: "Snow Symphony", image: "https://picsum.photos/id/15/200/200", year: "2023", songs: 10 },
+  { id: 2, name: "Short N' Sweet", artist: "Sabrina Carpenter", image: "https://i.scdn.co/image/ab67616d0000b273fd8d7a8d96871e791cb1f626", year: "2024", songs: 12 }
+ ];
 
 const allSongs = [
   { id: 1, title: "Frozen Heart", artist: "Elsa Melody", artistId: 1, album: "Winter Tales", albumId: 1, duration: "3:45", coverUrl: "https://picsum.photos/id/104/200/200", plays: "1.2M", trending: true, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
-  { id: 2, title: "Ice Castle Dreams", artist: "Snow Symphony", artistId: 2, album: "Frozen Echoes", albumId: 2, duration: "4:12", coverUrl: "https://picsum.photos/id/15/200/200", plays: "892K", trending: true, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
-  { id: 3, title: "Northern Lights", artist: "Aurora Vibes", artistId: 3, album: "Arctic Nights", albumId: 3, duration: "3:58", coverUrl: "https://picsum.photos/id/96/200/200", plays: "2.1M", trending: true, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
-  { id: 4, title: "Espresso", artist: "Sabrina Carpenter", artistId: 4, album: "Short n' Sweet", albumId: 4, duration: "3:21", coverUrl: "https://i.ytimg.com/vi/51zjlMhdSTE/maxresdefault.jpg", plays: "900M", trending: true, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
-  { id: 5, title: "Snowflake Waltz", artist: "Winter Wind", artistId: 5, album: "Dance of Snow", albumId: 5, duration: "3:30", coverUrl: "https://picsum.photos/id/30/200/200", plays: "1.5M", trending: true, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
-  { id: 6, title: "Arctic Sunrise", artist: "Polar Dawn", artistId: 6, album: "Morning Frost", albumId: 6, duration: "4:05", coverUrl: "https://picsum.photos/id/42/200/200", plays: "987K", trending: false, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
+  { id: 2, title: "Espresso", artist: "Sabrina Carpenter", artistId: 2, album: "Short n' Sweet", albumId: 2, duration: "3:21", coverUrl: "https://i.ytimg.com/vi/51zjlMhdSTE/maxresdefault.jpg", plays: "900M", trending: true, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
   { id: 7, title: "Winter Magic", artist: "Elsa Melody", artistId: 1, album: "Winter Tales", albumId: 1, duration: "3:52", coverUrl: "https://picsum.photos/id/20/200/200", plays: "1.8M", trending: true, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
-  { id: 8, title: "Snow Queen's Dance", artist: "Aurora Vibes", artistId: 3, album: "Arctic Nights", albumId: 3, duration: "4:15", coverUrl: "https://picsum.photos/id/29/200/200", plays: "2.3M", trending: false, audioUrl: "https://res.cloudinary.com/dqxuz1q6i/video/upload/v1775568901/Sabrina_Carpenter_-_Espresso_sfhscb.mp3" },
 ];
 
 type Page = "home" | "artist" | "album" | "search";
@@ -836,7 +825,12 @@ const removeFromPlaylist = (index: number) => {
                   {playlistSongs.map((song, index) => (
                     <div
                       key={song.id}
-                      className={`playlist-song-item ${index === currentQueueIndex && (currentSong._id || currentSong.id) === (song._id || song.id)? 'active' : ''}`}
+                     className={`playlist-song-item ${
+                                  index === currentQueueIndex &&
+                                  ((currentSong as any)._id || currentSong.id) === (song._id || song.id)
+                                    ? "active"
+                                    : ""
+                                }`}
                       onClick={() => playSongFromPlaylist(index)}
                     >
                       <div className="playlist-song-number">{index + 1}</div>
