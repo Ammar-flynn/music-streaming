@@ -1,5 +1,4 @@
 import client from "@/lib/mongodb";
-import { ObjectId } from "mongodb";
 
 export async function POST (req){
     const body = await req.json();
