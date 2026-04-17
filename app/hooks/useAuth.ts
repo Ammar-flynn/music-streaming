@@ -66,7 +66,7 @@ export function useAuth() {
     }
   };
 
-  // Verify OTP
+  
   // Verify OTP
 const handleVerifyOtp = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -126,7 +126,7 @@ const handleVerifyOtp = async (e: React.FormEvent) => {
     setTempUserData(null);
     setIsLoading(false);
     
-    // Return success so page.tsx can handle navigation
+    
     return true;
     
   } catch (err) {

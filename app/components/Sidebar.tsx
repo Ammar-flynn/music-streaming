@@ -1,5 +1,5 @@
 import { HomeIcon, Search, Heart, LogIn, LogOut, Menu, ListMusic } from "lucide-react";
-import { Page } from "@/types";
+import { Page } from "../types";
 
 interface SidebarProps {
   collapsed: boolean;

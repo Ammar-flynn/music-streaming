@@ -1,5 +1,5 @@
 import { Heart, Plus, Play } from "lucide-react";
-import { Song } from "@/types";
+import { Song } from "../types";
 
 interface SongCardProps {
   song: Song;

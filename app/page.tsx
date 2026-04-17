@@ -267,7 +267,7 @@ export default function Home() {
     setSliderIndex(0);
   };
 
-  // In your page.tsx, add this handler
+  
 const handleVerifyOtpAndRedirect = async (e: React.FormEvent) => {
   const success = await handleVerifyOtp(e);
   
@@ -308,8 +308,7 @@ const handleVerifyOtpAndRedirect = async (e: React.FormEvent) => {
       setSelectedAlbum(null);
       setError(null);
       
-      // Favorites will be loaded automatically by the useEffect
-      // that watches isLoggedIn and user
+      
     }
   };
 

@@ -102,7 +102,7 @@ export function useAudioPlayer() {
     }
   };
 
-  // Load new song effect - FIXED to prevent interruption
+  // Load new song effect 
   useEffect(() => {
     if (!audioRef.current || !currentSong) return;
 
@@ -148,7 +148,7 @@ export function useAudioPlayer() {
     };
   }, [currentSong]);
 
-  // Play/Pause effect - FIXED
+  // Play/Pause effect 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio || !currentSong || isLoading) return;

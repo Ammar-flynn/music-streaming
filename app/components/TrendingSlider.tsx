@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
-import { Song } from "@/types";
+import { Song } from "../types";
 
 interface TrendingSliderProps {
   trendingSongs: Song[];

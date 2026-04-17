@@ -1,5 +1,5 @@
 import { SongCard } from "./SongCard";
-import { Song } from "@/types";
+import { Song } from "../types";
 
 interface SongGridProps {
   songs: Song[];

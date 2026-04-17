@@ -57,7 +57,6 @@ export function useFavorites(songs: Song[], isLoggedIn: boolean, user: any) {
     return { success: false, requiresLogin: false };
   };
 
-  // ✅ ADD THIS FUNCTION
   const resetFavorites = () => {
     setFavorites([]);
   };

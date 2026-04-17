@@ -27,7 +27,7 @@ export default function AdminPage() {
     const token = localStorage.getItem('token');
     
     if (!token) {
-  router.push('/');  // ✅ Redirect to home page instead
+  router.push('/');  // Redirect to home page
   return;
 }
 
@@ -48,7 +48,7 @@ export default function AdminPage() {
     }
   }, [router]);
 
-  // Show loading while checking auth (prevents flash of content)
+  // Show loading while checking auth
   if (isCheckingAuth) {
     return (
       <div className="loading-container">
@@ -58,7 +58,7 @@ export default function AdminPage() {
     );
   }
 
-  // If not authorized, don't render anything (redirect will happen)
+  // If not authorized, don't render anything
   if (!isAuthorized) {
     return null;
   }
