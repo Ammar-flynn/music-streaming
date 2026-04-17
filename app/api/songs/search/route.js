@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 import client from "@/lib/mongodb";
 
 export async function GET (req){

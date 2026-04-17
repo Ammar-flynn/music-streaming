@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 import client from "@/lib/mongodb";
 import cloudinary from "@/lib/cloudinary";
 import jwt from "jsonwebtoken";

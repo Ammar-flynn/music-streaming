@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 import client from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
