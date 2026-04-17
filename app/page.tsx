@@ -66,25 +66,31 @@ export default function Home() {
   } = useAudioPlayer();
 
   const {
-    isLoggedIn,
-    user,
-    loginEmail,
-    setLoginEmail,
-    loginPassword,
-    setLoginPassword,
-    registerUsername,
-    setRegisterUsername,
-    registerEmail,
-    setRegisterEmail,
-    registerPassword,
-    setRegisterPassword,
-    authError,
-    authMode,
-    setAuthMode,
-    handleLogin,
-    handleRegister,
-    handleLogout,
-  } = useAuth();
+  isLoggedIn,
+  user,
+  loginEmail,
+  setLoginEmail,
+  loginPassword,
+  setLoginPassword,
+  registerUsername,
+  setRegisterUsername,
+  registerEmail,
+  setRegisterEmail,
+  registerPassword,
+  setRegisterPassword,
+  otp,                 
+  setOtp,              
+  showOtpInput,        
+  authError,
+  authMode,
+  setAuthMode,
+  isLoading,           
+  handleLogin,
+  handleRegister,
+  handleVerifyOtp,     
+  handleResendOtp,     
+  handleLogout,
+} = useAuth();
 
   const { favorites, setFavorites, fetchFavorites, toggleFavorite, resetFavorites } = useFavorites(songs, isLoggedIn, user);
 
@@ -232,7 +238,7 @@ export default function Home() {
     }
   };
 
-  // ✅ LOGOUT HANDLER - Clears everything
+  // LOGOUT HANDLER - Clears everything
   const handleLogoutClick = () => {
     // Clear audio
     if (audioRef.current) {
@@ -261,7 +267,32 @@ export default function Home() {
     setSliderIndex(0);
   };
 
-  // ✅ LOGIN HANDLER - Resets and loads user data
+  // In your page.tsx, add this handler
+const handleVerifyOtpAndRedirect = async (e: React.FormEvent) => {
+  const success = await handleVerifyOtp(e);
+  
+  if (success) {
+    // Clear any existing player state
+    clearQueue();
+    setIsPlaying(false);
+    setCurrentSong(null);
+    
+    // Reset search and selection
+    setSearchInput("");
+    setSearchQuery("");
+    setSelectedArtist(null);
+    setSelectedAlbum(null);
+    setError(null);
+    
+    // Redirect to home page
+    setCurrentPage("home");
+    
+    // Optional: Show success message
+    console.log("Account created and logged in successfully!");
+  }
+};
+
+  // LOGIN HANDLER - Resets and loads user data
   const handleLoginClick = async (e: React.FormEvent) => {
     const success = await handleLogin(e);
     
@@ -461,26 +492,33 @@ export default function Home() {
           />
         )}
 
-        {currentPage === "login" && !isLoggedIn && (
-          <AuthModal
-            mode={authMode}
-            onModeChange={setAuthMode}
-            loginEmail={loginEmail}
-            setLoginEmail={setLoginEmail}
-            loginPassword={loginPassword}
-            setLoginPassword={setLoginPassword}
-            registerUsername={registerUsername}
-            setRegisterUsername={setRegisterUsername}
-            registerEmail={registerEmail}
-            setRegisterEmail={setRegisterEmail}
-            registerPassword={registerPassword}
-            setRegisterPassword={setRegisterPassword}
-            error={authError}
-            onLogin={handleLoginClick}
-            onRegister={handleRegister}
-            onGuestContinue={() => setCurrentPage("home")}
-          />
-        )}
+
+    {currentPage === "login" && !isLoggedIn && (
+        <AuthModal
+          mode={authMode}
+          onModeChange={setAuthMode}
+          loginEmail={loginEmail}
+          setLoginEmail={setLoginEmail}
+          loginPassword={loginPassword}
+          setLoginPassword={setLoginPassword}
+          registerUsername={registerUsername}
+          setRegisterUsername={setRegisterUsername}
+          registerEmail={registerEmail}
+          setRegisterEmail={setRegisterEmail}
+          registerPassword={registerPassword}
+          setRegisterPassword={setRegisterPassword}
+          otp={otp}
+          setOtp={setOtp}
+          showOtpInput={showOtpInput}
+          error={authError}
+          isLoading={isLoading}
+          onLogin={handleLoginClick}
+          onRegister={handleRegister}
+          onVerifyOtp={handleVerifyOtpAndRedirect}  // ← Use this instead
+          onResendOtp={handleResendOtp}
+          onGuestContinue={() => setCurrentPage("home")}
+        />
+      )}
       </div>
 
       <NowPlayingBar
