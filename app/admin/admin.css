@@ -303,3 +303,14 @@
 [data-tooltip]:hover:before {
   display: block;
 }
+
+.help-text {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.success-message {
+  white-space: pre-line;
+}

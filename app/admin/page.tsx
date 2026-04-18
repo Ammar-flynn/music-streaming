@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Upload, Music, Image, X, CheckCircle, AlertCircle, LogOut } from "lucide-react";
+import { Upload, Music, Image, X, CheckCircle, AlertCircle, LogOut, User } from "lucide-react";
 import "./admin.css";
 
 export default function AdminPage() {
@@ -11,7 +11,7 @@ export default function AdminPage() {
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true); // Add this
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [user, setUser] = useState<any>(null);
   
   const [formData, setFormData] = useState({
@@ -20,6 +20,7 @@ export default function AdminPage() {
     album: "",
     audio: null as File | null,
     cover: null as File | null,
+    artistCover: null as File | null, // NEW: Artist cover image
   });
 
   // Check authentication
@@ -27,9 +28,9 @@ export default function AdminPage() {
     const token = localStorage.getItem('token');
     
     if (!token) {
-  router.push('/');  // Redirect to home page
-  return;
-}
+      router.push('/');
+      return;
+    }
 
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
@@ -37,18 +38,15 @@ export default function AdminPage() {
         setUser({ userId: payload.userId, role: payload.role, username: payload.username });
         setIsAuthorized(true);
       } else {
-        // Non-admin user - redirect to home
         router.replace('/');
       }
     } catch (err) {
-      // Invalid token - redirect to login
       router.replace('/login');
     } finally {
       setIsCheckingAuth(false);
     }
   }, [router]);
 
-  // Show loading while checking auth
   if (isCheckingAuth) {
     return (
       <div className="loading-container">
@@ -58,7 +56,6 @@ export default function AdminPage() {
     );
   }
 
-  // If not authorized, don't render anything
   if (!isAuthorized) {
     return null;
   }
@@ -87,7 +84,7 @@ export default function AdminPage() {
     setSuccess(null);
 
     if (!formData.title || !formData.artist || !formData.album || !formData.audio || !formData.cover) {
-      setError("Please fill in all fields and upload both audio and cover image");
+      setError("Please fill in all fields and upload audio and song cover");
       setLoading(false);
       return;
     }
@@ -98,6 +95,9 @@ export default function AdminPage() {
     submitData.append("album", formData.album);
     submitData.append("audio", formData.audio);
     submitData.append("cover", formData.cover);
+    if (formData.artistCover) {
+      submitData.append("artistCover", formData.artistCover);
+    }
 
     try {
       const token = localStorage.getItem('token');
@@ -113,19 +113,32 @@ export default function AdminPage() {
       const data = await res.json();
       
       if (res.ok) {
-        setSuccess(`Song "${formData.title}" uploaded successfully!`);
+        let successMessage = `✅ Song "${formData.title}" uploaded successfully!\n`;
+        if (data.artist?.created) {
+          successMessage += `🎨 New artist "${data.artist.name}" was created with custom image!`;
+        } else {
+          successMessage += `🎨 Added to existing artist "${data.artist.name}"`;
+          if (formData.artistCover) {
+            successMessage += `\n🖼️ Artist image was updated!`;
+          }
+        }
+        setSuccess(successMessage);
+        
         setFormData({
           title: "",
           artist: "",
           album: "",
           audio: null,
           cover: null,
+          artistCover: null,
         });
         // Reset file inputs
         const audioInput = document.getElementById('audio') as HTMLInputElement;
         const coverInput = document.getElementById('cover') as HTMLInputElement;
+        const artistCoverInput = document.getElementById('artistCover') as HTMLInputElement;
         if (audioInput) audioInput.value = '';
         if (coverInput) coverInput.value = '';
+        if (artistCoverInput) artistCoverInput.value = '';
       } else {
         setError(data.error || "Upload failed");
       }
@@ -156,7 +169,7 @@ export default function AdminPage() {
         {success && (
           <div className="success-message">
             <CheckCircle size={20} />
-            <span>{success}</span>
+            <span style={{ whiteSpace: 'pre-line' }}>{success}</span>
             <button onClick={() => setSuccess(null)}><X size={16} /></button>
           </div>
         )}
@@ -223,7 +236,7 @@ export default function AdminPage() {
           </div>
 
           <div className="form-group">
-            <label>Cover Image</label>
+            <label>Song Cover Image</label>
             <div className="file-input-wrapper">
               <input
                 type="file"
@@ -234,8 +247,24 @@ export default function AdminPage() {
                 required
               />
               <Image size={20} />
-              <span>{formData.cover ? formData.cover.name : "Choose cover image"}</span>
+              <span>{formData.cover ? formData.cover.name : "Choose song cover image"}</span>
             </div>
+          </div>
+
+          <div className="form-group">
+            <label>Artist Cover Image (Optional)</label>
+            <div className="file-input-wrapper">
+              <input
+                type="file"
+                id="artistCover"
+                name="artistCover"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+              <User size={20} />
+              <span>{formData.artistCover ? formData.artistCover.name : "Choose artist image (optional)"}</span>
+            </div>
+            <small className="help-text">If not provided, song cover will be used for artist</small>
           </div>
 
           <button type="submit" disabled={loading} className="upload-button">

@@ -181,62 +181,70 @@ const handleOpenQueue = () => setIsQueueOpen(true);
 
   // ========== MAIN FUNCTIONS ==========
   const fetchSongs = async () => {
+  try {
+    setLoading(true);
+    let apiSongs: Song[] = [];
+    
     try {
-      setLoading(true);
-      let apiSongs: Song[] = [];
-      
-      try {
-        const res = await fetch('/api/songs');
-        if (res.ok) {
-          apiSongs = await res.json();
-        }
-      } catch (err) {
-        console.log('API not available');
+      const res = await fetch('/api/songs');
+      if (res.ok) {
+        apiSongs = await res.json();
       }
-      
-      const allSongs = [...hardcodedSongs];
-      for (const apiSong of apiSongs) {
-        const isDuplicate = hardcodedSongs.some(hardcoded => 
-          hardcoded.title === apiSong.title && hardcoded.artist === apiSong.artist
-        );
-        if (!isDuplicate) {
-          allSongs.push(apiSong);
-        }
-      }
-      
-      setSongs(allSongs);
-      
-      if (apiSongs.length > 0) {
-        const apiArtists = extractArtistsFromSongs(apiSongs);
-        const apiAlbums = extractAlbumsFromSongs(apiSongs);
-        
-        const mergedArtists = [...artists];
-        for (const apiArtist of apiArtists) {
-          const exists = mergedArtists.some(a => a.name === apiArtist.name);
-          if (!exists) {
-            mergedArtists.push(apiArtist);
-          }
-        }
-        setArtists(mergedArtists);
-        
-        const mergedAlbums = [...albums];
-        for (const apiAlbum of apiAlbums) {
-          const exists = mergedAlbums.some(a => a.name === apiAlbum.name && a.artist === apiAlbum.artist);
-          if (!exists) {
-            mergedAlbums.push(apiAlbum);
-          }
-        }
-        setAlbums(mergedAlbums);
-      }
-      
     } catch (err) {
-      setError('Failed to load songs');
-      console.error(err);
-      setSongs(hardcodedSongs);
-    } finally {
-      setLoading(false);
+      console.log('API not available');
     }
-  };
+    
+    const allSongs = [...hardcodedSongs];
+    for (const apiSong of apiSongs) {
+      const isDuplicate = hardcodedSongs.some(hardcoded => 
+        hardcoded.title === apiSong.title && hardcoded.artist === apiSong.artist
+      );
+      if (!isDuplicate) {
+        allSongs.push(apiSong);
+      }
+    }
+    
+    setSongs(allSongs);
+    return allSongs; 
+    
+  } catch (err) {
+    setError('Failed to load songs');
+    console.error(err);
+    setSongs(hardcodedSongs);
+    return hardcodedSongs; 
+  } finally {
+    setLoading(false);
+  }
+};
+
+  // Add this function after fetchSongs
+const fetchArtistsFromAPI = async () => {
+  try {
+    const res = await fetch('/api/artists');
+    
+    // Extract hardcoded artists from hardcodedSongs
+    const hardcodedArtists = extractArtistsFromSongs(hardcodedSongs);
+    
+    if (res.ok) {
+      const artistsData = await res.json();
+      
+      // Filter out hardcoded artists from API response (to avoid duplicates)
+      const filteredApiArtists = artistsData.filter(
+        (apiArtist: Artist) => !hardcodedArtists.some(h => h.name === apiArtist.name)
+      );
+      
+      // Combine: Hardcoded first, then API artists
+      const mergedArtists = [...hardcodedArtists, ...filteredApiArtists];
+      
+      setArtists(mergedArtists);
+      return true;
+    }
+    return false;
+  } catch (err) {
+    console.log('Artists API not available yet');
+    return false;
+  }
+};
 
   const incrementPlays = async (songId: string) => {
     if (songId.startsWith('hardcoded')) return;
@@ -353,8 +361,19 @@ const handleVerifyOtpAndRedirect = async (e: React.FormEvent) => {
 
   // ========== USE EFFECTS ==========
   useEffect(() => {
-    fetchSongs();
-  }, []);
+  const loadData = async () => {
+    const loadedSongs = await fetchSongs(); // Get songs directly
+    const hasArtists = await fetchArtistsFromAPI();
+    
+    // If no artists in collection, extract from songs
+    if (!hasArtists && loadedSongs.length > 0) {
+      const extractedArtists = extractArtistsFromSongs(loadedSongs);
+      setArtists(extractedArtists);
+    }
+  };
+  
+  loadData();
+}, []);
 
   useEffect(() => {
     if (isLoggedIn && user) {
@@ -457,10 +476,13 @@ const handleVerifyOtpAndRedirect = async (e: React.FormEvent) => {
               onNextSlide={() => setSliderIndex((prev) => (prev + 1) % trendingSongs.length)}
               onPlay={handlePlaySong}
             />
-            <ArtistGrid artists={artists} onSelectArtist={(artist) => {
-              setSelectedArtist(artist);
-              setCurrentPage("artist");
-            }} />
+            <ArtistGrid 
+              artists={artists.slice(0, 10)} 
+              onSelectArtist={(artist) => {
+                setSelectedArtist(artist);
+                setCurrentPage("artist");
+              }} 
+            />
             <AlbumGrid albums={albums} onSelectAlbum={(album) => {
               setSelectedAlbum(album);
               setCurrentPage("album");
