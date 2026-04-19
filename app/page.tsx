@@ -29,8 +29,7 @@ export default function Home() {
     { id: "default-2", name: "Elsa Melody", image: "https://picsum.photos/id/104/200/200", followers: "2.5M" }
   ]);
   const [albums, setAlbums] = useState<Album[]>([
-    { id: "default-1", name: "Short N' Sweet", artist: "Sabrina Carpenter", image: "https://i.scdn.co/image/ab67616d0000b273fd8d7a8d96871e791cb1f626", year: "2024", songs: 12 },
-    { id: "default-2", name: "Frozen Echoes", artist: "Snow Symphony", image: "https://picsum.photos/id/15/200/200", year: "2023", songs: 10 }
+    { id: "default-1", name: "Short N' Sweet", artist: "Sabrina Carpenter", image: "https://i.scdn.co/image/ab67616d0000b273fd8d7a8d96871e791cb1f626", year: "2024", songs: 12 }
   ]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -359,13 +358,27 @@ const handleVerifyOtpAndRedirect = async (e: React.FormEvent) => {
     );
   };
 
-  // ========== USE EFFECTS ==========
-  useEffect(() => {
+// ========== USE EFFECTS ==========
+useEffect(() => {
   const loadData = async () => {
     const loadedSongs = await fetchSongs(); // Get songs directly
-    const hasArtists = await fetchArtistsFromAPI();
     
-    // If no artists in collection, extract from songs
+    const extractedAlbums = extractAlbumsFromSongs(loadedSongs);
+    
+    // Get hardcoded albums (the ones starting with 'default-')
+    const hardcodedAlbums = albums.filter(album => album.id.startsWith('default-'));
+    
+    // Filter out duplicates (albums that are already hardcoded)
+    const filteredExtractedAlbums = extractedAlbums.filter(extractedAlbum => 
+      !hardcodedAlbums.some(hardcoded => 
+        hardcoded.name === extractedAlbum.name && hardcoded.artist === extractedAlbum.artist
+      )
+    );
+    
+    setAlbums([...hardcodedAlbums, ...filteredExtractedAlbums]);
+    
+    // Handle artists (your existing code)
+    const hasArtists = await fetchArtistsFromAPI();
     if (!hasArtists && loadedSongs.length > 0) {
       const extractedArtists = extractArtistsFromSongs(loadedSongs);
       setArtists(extractedArtists);
