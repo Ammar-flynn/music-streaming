@@ -22,7 +22,7 @@ export function Header({
       <div className="search-container">
         <input
           type="text"
-          placeholder="Search on Frozen Beats... (Press Enter)"
+          placeholder="Search on Frozen Beats"
           value={searchInput}
           onChange={(e) => onSearchInputChange(e.target.value)}
           onKeyDown={(e) => {

@@ -52,7 +52,7 @@ export function Sidebar({
       
       {/* Hamburger menu label */}
       <label htmlFor="mobile-menu-toggle" className="mobile-menu-button">
-        <Menu size={24} />
+         <img src="/Flake.jpg" alt="Frozen Beats" className="logo-icon" />
       </label>
       
       {/* Overlay when sidebar is open */}
@@ -61,15 +61,13 @@ export function Sidebar({
       <div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
         <div className="sidebar-content">
           <button className="sidebar-toggle" onClick={onToggleCollapse}>
-            <Menu size={20} />
-          </button>
-          
           <div className="logo-container" onClick={() => handlePageChange("home")}>
             <div className="logo-icon-wrapper">
               <img src="/Flake.jpg" alt="Frozen Beats" className="logo-icon" />
             </div>
             {!collapsed && <h1 className="logo-text">Frozen Beats</h1>}
           </div>
+          </button>
           
           <nav className="nav">
             <button onClick={() => handlePageChange("home")} className="nav-button">
