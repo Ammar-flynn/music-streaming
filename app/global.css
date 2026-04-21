@@ -1880,6 +1880,227 @@ button:disabled {
   background: rgba(255, 255, 255, 0.2);
 }
 
+/* ========== DESKTOP APP MODAL ========== */
+.desktop-app-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20000;
+  animation: desktopModalFadeIn 0.2s ease;
+}
+
+@keyframes desktopModalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.desktop-app-modal-content {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 20px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 141, 197, 0.3);
+  animation: desktopModalSlideUp 0.3s ease;
+}
+
+@keyframes desktopModalSlideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.desktop-app-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 141, 197, 0.1);
+  border-radius: 20px 20px 0 0;
+}
+
+.desktop-app-modal-header h2 {
+  flex: 1;
+  margin: 0;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.desktop-app-modal-header svg {
+  color: #008dc5;
+}
+
+.desktop-app-modal-close {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.desktop-app-modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.desktop-app-modal-body {
+  padding: 24px;
+}
+
+.desktop-app-modal-body p {
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.desktop-app-modal-features,
+.desktop-app-modal-requirements {
+  margin-bottom: 20px;
+}
+
+.desktop-app-modal-features h3,
+.desktop-app-modal-requirements h3 {
+  color: #008dc5;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.desktop-app-modal-features ul,
+.desktop-app-modal-requirements ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #bbb;
+}
+
+.desktop-app-modal-features li,
+.desktop-app-modal-requirements li {
+  margin: 8px 0;
+  line-height: 1.4;
+}
+
+.desktop-app-modal-buttons {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0 16px;
+}
+
+.desktop-app-download-btn {
+  background: linear-gradient(135deg, #008dc5, #005f87);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.desktop-app-download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(0, 141, 197, 0.3);
+}
+
+.desktop-app-cancel-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 20px;
+  border-radius: 30px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.desktop-app-cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.desktop-app-modal-note {
+  font-size: 0.8rem;
+  color: #888;
+  text-align: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Desktop App Section in Sidebar */
+.desktop-app-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.desktop-app-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(0, 141, 197, 0.15);
+  border: 1px solid rgba(0, 141, 197, 0.3);
+  border-radius: 8px;
+  color: #dedede;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.desktop-app-button:hover {
+  background: rgba(0, 141, 197, 0.25);
+  transform: translateX(4px);
+}
+
+.desktop-app-hint {
+  font-size: 0.7rem;
+  color: #b8b7b7;
+  margin-top: 8px;
+  margin-bottom: 0;
+  padding-left: 8px;
+}
+
+.desktop-app-section.desktop-active {
+  opacity: 0.7;
+}
+
+.desktop-app-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 8px;
+  color: #4caf50;
+  font-size: 0.85rem;
+}
+
 .password-input-wrapper {
   position: relative;
   margin-bottom: 16px;
